@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-
 class Graph:
     def __init__(self, connections_list, directed=False):
         self._graph = defaultdict(set)
