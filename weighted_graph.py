@@ -1,42 +1,43 @@
+import dataclasses
+from typing import Set, Union, List
+
+@dataclasses.dataclass()
 class Edge():
-    def __init__(self, first, second, u, v):
-        self.first = first
-        self.second = second
-        self.u = u
-        self.v = v
+    first: Union[int, str]
+    second: Union[int, str]
+    u: int
+    v: int
 
     def __str__(self):
         return f'pierwszy wierzcholek: {self.first}, drugi wierzcholek: {self.second}, u: {self.u}, v: {self.v}'
 
 
 class Graph:
-    def __init__(self, edges=None):
-        self.edges = edges or []
-        self.node_list = []
-        self.relations_list = {}
+    def __init__(self, edges: List[Edge] = []):
+        self.edges = edges
+        self.node_list: Set[str] = set()
+        self.__unpack_nodes()
 
     """Dodaje nowa krawedz do grafu"""
-    def add_new_connection(self, edge):
+    def add_new_connection(self, edge: Edge):
         self.edges.append(edge)
+        self.node_list.add(edge.first)
+        self.node_list.add(edge.second)
 
     """Wypisuje wszystkie krawedzie w grafie wraz z wagami"""
     def print_all_edges(self):
         for edge in self.edges:
             print(edge)
 
-    """Zapsiuje na liste wszystkie wierzcholki w grafie"""
-    def get_all_nodes(self):
-        for edge in self.edges:
-            if edge.first not in self.node_list:
-                self.node_list.append(edge.first)
-            if edge.second not in self.node_list:
-                self.node_list.append(edge.second)
-    
     def print_all_nodes(self):
         print(f'Wszystkie wierzcholki w grafie ({len(self.node_list)}): ', end="")
-        for node in self.node_list:
-            print(node, end=" ")
-        print("")
+        print(" ".join(sorted(self.node_list)))
+
+    """Wewnętrzna funkcja. Zapsiuje na set wszystkie wierzcholki w grafie."""
+    def __unpack_nodes(self):
+        for edge in self.edges:
+            self.node_list.add(edge.first)
+            self.node_list.add(edge.second)
 
 
 if __name__ == "__main__":
@@ -49,10 +50,8 @@ if __name__ == "__main__":
     graph = Graph(edges)
 
     graph.print_all_edges()
-    graph.get_all_nodes()
     graph.print_all_nodes()
 
     graph.add_new_connection(Edge("A", "C", 3, 4))
     graph.print_all_edges()
-    graph.get_all_nodes()
     graph.print_all_nodes()
