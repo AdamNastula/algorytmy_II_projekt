@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Set, Union, List
+from typing import Dict, Set, Tuple, Union, List
 
 @dataclasses.dataclass()
 class Edge():
@@ -16,10 +16,10 @@ class Graph:
     def __init__(self, edges: List[Edge] = []):
         self.edges = edges
         self.node_list: Set[str] = set()
-        self.adjacency_matrix = []
-        self.adjacency_list = {}
-        self.nodes_to_numbers = {}
-        self.numbers_to_nodes = {}
+        self.adjacency_matrix: List[Tuple[int, int]] = []
+        self.adjacency_list: List[str] = {}
+        self.nodes_to_numbers: Dict[str, int] = {}
+        self.numbers_to_nodes: Dict[int, str] = {} # to nigdzie nie jest uzywane (narazie?)
         self.__unpack_nodes()
         self.__encode_nodes()
 
@@ -33,7 +33,9 @@ class Graph:
     def __encode_nodes(self):
         counter = 0
 
-        for node in self.node_list:
+        nodes = list(self.node_list)
+        nodes.sort()
+        for node in nodes:
             self.nodes_to_numbers[node] = counter
             self.numbers_to_nodes[counter] = node
             counter += 1
@@ -85,6 +87,18 @@ class Graph:
 
         for edge in self.edges:
             self.adjacency_matrix[self.nodes_to_numbers[edge.first]][self.nodes_to_numbers[edge.second]] = [edge.capacity, edge.flow]
+            self.adjacency_matrix[self.nodes_to_numbers[edge.second]][self.nodes_to_numbers[edge.first]] = [edge.flow, edge.capacity]
+
+    """Wypisuje macierz sasiedztwa (z informacja o przeplywie i przepustowosci)"""
+    def print_adjacency_matrix(self):
+        for row in graph.adjacency_matrix:
+            print(row)
+
+        print()
+
+    def print_all_connections(self):
+        for node in sorted(graph.node_list):
+            print(node, graph.adjacency_list[node])
 
     """Funkcja ustawi nowa wartosc przeplywu na podanej sciezce (sciezka taka jaka zwraca bfs)"""
     def update_flow_on_path(self, path, new_flow):
@@ -97,7 +111,7 @@ class Graph:
             index -=1
 
             self.adjacency_matrix[self.nodes_to_numbers[begin]][self.nodes_to_numbers[end]][1] = new_flow
-
+            self.adjacency_matrix[self.nodes_to_numbers[end]][self.nodes_to_numbers[begin]][0] = new_flow
 
 
 if __name__ == "__main__":
@@ -121,15 +135,10 @@ if __name__ == "__main__":
     print(graph.nodes_to_numbers)
     print()
 
-    for row in graph.adjacency_matrix:
-        print(row)
+    graph.print_adjacency_matrix()
 
-    print()
-
-    for node in graph.node_list:
-        print(node, graph.adjacency_list[node])
-
+    graph.print_all_connections()
+    
     graph.update_flow_on_path(['B', 'C', 'A'], 10)
 
-    for row in graph.adjacency_matrix:
-        print(row)
+    graph.print_adjacency_matrix()
