@@ -60,7 +60,25 @@ class Graph:
         
         for edge in self.edges:
             self.adjacency_list[edge.first].append(edge.second)
-    
+
+    """Na podstawie macierzy sasiedztwa aktualizuje listę sąsiedztwa i listę połączeń"""
+    def update_structure(self):
+        index = len(self.adjacency_matrix)
+        for i in range(index):
+            self.adjacency_list.clear()
+
+        for i in range(len(self.edges)):
+            self.edges.clear()
+
+        for i in range(index):
+            for j in range(index):
+                if self.adjacency_matrix[i][j][0] > 0:
+                    edge1 = Edge(self.numbers_to_nodes[i],self.numbers_to_nodes[j],self.adjacency_matrix[i][j][0],self.adjacency_matrix[i][j][1])
+                    self.edges.append(edge1)
+        self.create_adjacency_list()
+
+
+
     """Wypelnia macierz sasiedztwa (z informacja o przeplywie i przepustowosci)"""
     def create_adjacency_matrix(self):
         self.adjacency_matrix = [[[0, 0] for x in range(len(self.node_list))] for y in range(len(self.node_list))]
@@ -105,12 +123,12 @@ if __name__ == "__main__":
 
     for row in graph.adjacency_matrix:
         print(row)
-    
+
     print()
 
     for node in graph.node_list:
         print(node, graph.adjacency_list[node])
-    
+
     graph.update_flow_on_path(['B', 'C', 'A'], 10)
 
     for row in graph.adjacency_matrix:
