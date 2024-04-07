@@ -1,0 +1,97 @@
+import dataclasses
+import numpy as np
+
+
+@dataclasses.dataclass()
+class Point():
+    x: int
+    y: int
+
+
+def det(a: Point, b: Point, c: Point) -> int:
+    n_array = np.array([[a.x, a.y, 1], [b.x, b.y, 1], [c.x, c.y, 1]])
+    return int(np.linalg.det(n_array))
+
+
+"""sprawdza, czy punkt znajduje sie na prostej"""
+def is_on_line(a: Point, b: Point, c: Point) -> bool:
+    if c.x < a.x == c.x < b.x:
+        return False
+    if c.y < a.y == c.y < b.y:
+        return False
+    if (b.x - a.x)*(c.y - a.y) != (c.x - a.x)*(b.y - a.y):
+        return False
+    return True
+
+
+"""sprawdza wspolliniowosc"""
+def check_multicollinearity(a: Point, b: Point, c: Point, d: Point) -> bool:
+    # a miedzy c i d
+    if min(c.x, d.x) <= a.x <= max(c.x, d.x) and min(c.y, d.y) <= a.y <= max(c.y, d.y):
+        return True
+    # b miedzy c i d
+    elif min(c.x, d.x) <= b.x <= max(c.x, d.x) and min(c.y, d.y) <= b.y <= max(c.y, d.y):
+        return True
+    # c miedzy a i b
+    elif min(a.x, b.x) <= c.x <= max(a.x, b.x) and min(a.y, b.y) <= c.y <= max(a.y, b.y):
+        return True
+    # d miedzy a i b
+    elif min(a.x, b.x) <= d.x <= max(a.x, b.x) and min(a.y, b.y) <= d.y <= max(a.y, b.y):
+        return True
+    return False
+
+
+"""sprawdza, czy proste sie przecinaja"""
+def intersection(a: Point, b: Point, c: Point, d: Point) -> bool:
+    first_det = det(a, b, c)
+    second_det = det(a, b, d)
+
+    if first_det > 0 > second_det or first_det < 0 < second_det:
+        return True
+    elif (is_on_line(a, b, c) or is_on_line(a, b, d)) and check_multicollinearity(a, b, c, d):
+        return True
+    return False
+
+
+if __name__ == "__main__":
+    print(intersection(
+        Point(2, 2),
+        Point(10, 7),
+        Point(3, 8),
+        Point(8, 1)
+    ))  # tak
+
+    print(intersection(
+        Point(1, 2),
+        Point(7, 6),
+        Point(7, 3),
+        Point(9, 1)
+    ))  # nie
+    
+    print(intersection(
+        Point(1, 1),
+        Point(5, 5),
+        Point(3, 3),
+        Point(6, 6)
+    ))  # tak
+
+    print(intersection(
+        Point(1, 1),
+        Point(5, 5),
+        Point(3, 3),
+        Point(4, 4)
+    ))  # tak
+
+    print(intersection(
+        Point(1, 1),
+        Point(5, 5),
+        Point(3, 3),
+        Point(5, 2)
+    ))  # tak
+
+    print(intersection(
+        Point(1, 1),
+        Point(5, 5),
+        Point(6, 6),
+        Point(7, 7)
+    ))  # nie
