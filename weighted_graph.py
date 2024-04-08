@@ -17,10 +17,10 @@ class Graph:
     def __init__(self, edges: List[Edge] = []):
         self.edges = edges
         self.node_list: Set[str] = set()
-        self.adjacency_matrix = []
-        self.adjacency_list = {}
-        self.nodes_to_numbers = {}
-        self.numbers_to_nodes = {}
+        self.adjacency_matrix: List[Tuple[int, int]] = []
+        self.adjacency_list: List[str] = {}
+        self.nodes_to_numbers: Dict[str, int] = {}
+        self.numbers_to_nodes: Dict[int, str] = {}  # to nigdzie nie jest uzywane (narazie?)
         self.__unpack_nodes()
         self.__encode_nodes()
 
@@ -55,7 +55,7 @@ class Graph:
     def print_all_edges(self):
         for edge in self.edges:
             print(edge)
-
+    """Uaktualnia listę sąsiedztwa i listę krawędzi przy użyciu macieży sąsiedztwa"""
     def update_structure(self):
         index = len(self.adjacency_matrix)
         for i in range(index):

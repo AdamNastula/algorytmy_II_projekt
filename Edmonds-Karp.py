@@ -34,9 +34,18 @@ class EdmondsKarp:
     def update_graph(self,path, value):
         index = len(path)
         for i in range(index - 1):
+            temp=value
             first = self.graph.nodes_to_numbers[path[i]]
             second = self.graph.nodes_to_numbers[path[i + 1]]
-            self.graph.adjacency_matrix[first][second][1]+=value
+            if self.graph.adjacency_matrix[second][first][1]>0:
+                if self.graph.adjacency_matrix[second][first][1]>=value:
+                    self.graph.adjacency_matrix[second][first][1] -= value
+                else:
+                    value-=self.graph.adjacency_matrix[second][first][1]
+                    self.graph.adjacency_matrix[second][first][1]=0
+                    self.graph.adjacency_matrix[first][second][1] += value
+            else:
+                self.graph.adjacency_matrix[second][first][1] += value
         self.graph.update_structure()
     """tworzy sieć rezydualną na podstawie obecnego grafu"""
     def make_residual(self):
