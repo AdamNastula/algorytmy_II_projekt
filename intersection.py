@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import dataclasses
 import numpy as np
 
@@ -52,6 +53,11 @@ def intersection(a: Point, b: Point, c: Point, d: Point) -> bool:
         return True
     return False
 
+"""wyswietla graficzna reprezentacje odcinkow"""
+def drawGraphic(axis, a: Point, b: Point, c: Point, d: Point):
+    axis.plot([a.x, b.x], [a.y, b.y], color="blue")
+    axis.plot([c.x, d.x], [c.y, d.y], color="blue")
+    axis.set_title(f"A: ({a.x}, {a.y}), B: ({b.x}, {b.y}), C: ({c.x}, {c.y}), D: ({d.x}, {d.y})")
 
 if __name__ == "__main__":
     print(intersection(
@@ -95,3 +101,67 @@ if __name__ == "__main__":
         Point(6, 6),
         Point(7, 7)
     ))  # nie
+
+    print(intersection(
+        Point(2, 2),
+        Point(4, 4),
+        Point(5, 4),
+        Point(8, 4)
+    ))  # nie
+
+    print(intersection(
+        Point(2, 1),
+        Point(4, 3),
+        Point(4, 3),
+        Point(4, 6)
+    ))  # tak
+
+    print(intersection(
+        Point(2, 1),
+        Point(2, 6),
+        Point(2, 5),
+        Point(5, 5)
+    ))  # tak
+
+    print(intersection(
+        Point(1, 3),
+        Point(3, 3),
+        Point(5, 3),
+        Point(7, 3)
+    ))  # nie
+
+    """axis - wymiar tablicy, na ktorej beda rysowane grafy, w tym przypadku 2x2"""
+    figure, axis = plt.subplots(2, 2, figsize=(12, 12)) 
+
+    """axis w tej funkcji wyznacza pozycje, na ktorej bedzie narysowany graf"""
+    drawGraphic(
+        axis[0, 0],
+        Point(1, 3),
+        Point(3, 3),
+        Point(5, 3),
+        Point(7, 3))
+    
+    drawGraphic(
+        axis[0, 1],
+        Point(2, 1),
+        Point(2, 6),
+        Point(2, 5),
+        Point(5, 5))
+    
+    drawGraphic(
+        axis[1, 0],
+        Point(2, 1),
+        Point(4, 3),
+        Point(4, 3),
+        Point(4, 6)
+    )
+
+    drawGraphic(
+        axis[1, 1],
+        Point(2, 2),
+        Point(4, 4),
+        Point(5, 4),
+        Point(8, 4)
+    )
+
+    plt.show()
