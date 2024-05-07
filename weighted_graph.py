@@ -66,7 +66,7 @@ class Graph:
 
         for i in range(index):
             for j in range(index):
-                if self.adjacency_matrix[i][j][0] > 0:
+                if self.adjacency_matrix[i][j][0]-self.adjacency_matrix[i][j][1] > 0:
                     edge1 = Edge(self.numbers_to_nodes[i], self.numbers_to_nodes[j],self.adjacency_matrix[i][j][0], self.adjacency_matrix[i][j][1])
                     self.edges.append(edge1)
         self.create_adjacency_list()
