@@ -3,8 +3,8 @@ import dataclasses
 import numpy as np
 
 
-@dataclasses.dataclass()
-class Point():
+@dataclasses.dataclass(frozen=True)
+class Point:
     x: int
     y: int
 
