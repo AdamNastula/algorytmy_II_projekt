@@ -264,7 +264,7 @@ if __name__ == "__main__":
             intersection.Point(1, 9), intersection.Point(4, 5), intersection.Point(1, 8), intersection.Point(9, 2), intersection.Point(9, 10),
             intersection.Point(4, 8), intersection.Point(6, 10), intersection.Point(10, 1), intersection.Point(6, 7), intersection.Point(9, 3)]
 
-    convex_hull_points = calculate_hull(points2)['convex_hull']
+    convex_hull_points = calculate_hull(points1)['convex_hull']
     print(convex_hull_points)
 
-    draw_convex_hull(points2, convex_hull_points)
+    draw_convex_hull(points1, convex_hull_points)
