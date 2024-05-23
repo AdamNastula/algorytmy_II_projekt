@@ -389,9 +389,9 @@ if __name__ == "__main__":
         Point(36, 58)
 ]
 
-    convex_hull_points = calculate_hull(points)['convex_hull']
+    convex_hull_points = calculate_hull(points4)['convex_hull']
     print(convex_hull_points)
-    draw_convex_hull(points, convex_hull_points)
+    draw_convex_hull(points4, convex_hull_points)
 
     print(get_distance_between_all_points(convex_hull_points))
 

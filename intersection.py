@@ -58,7 +58,7 @@ def intersection(a: Point, b: Point, c: Point, d: Point) -> bool:
     return False
 
 """wyswietla graficzna reprezentacje odcinkow"""
-def drawGraphic(axis, a: Point, b: Point, c: Point, d: Point):
+def draw_graphic(axis, a: Point, b: Point, c: Point, d: Point):
     axis.plot([a.x, b.x], [a.y, b.y], color="blue")
     axis.plot([c.x, d.x], [c.y, d.y], color="blue")
     axis.set_title(f"A: ({a.x}, {a.y}), B: ({b.x}, {b.y}), C: ({c.x}, {c.y}), D: ({d.x}, {d.y})")
