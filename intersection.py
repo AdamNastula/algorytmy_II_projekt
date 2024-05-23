@@ -1,3 +1,4 @@
+import math
 import matplotlib.pyplot as plt
 import dataclasses
 import numpy as np
@@ -7,6 +8,9 @@ import numpy as np
 class Point:
     x: int
     y: int
+
+    def Distance(self, point):
+        return math.sqrt(math.pow((point.x - self.x), 2) + math.pow((point.y - self.y), 2))
 
 
 def det(a: Point, b: Point, c: Point) -> int:
