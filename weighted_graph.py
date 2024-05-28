@@ -55,9 +55,15 @@ class Graph:
     def print_all_edges(self):
         for edge in self.edges:
             print(edge)
+    """Uaktualnia słowniki po dodaniu nowych połączeń"""
+    def update_nodes(self):
+        self.numbers_to_nodes.clear()
+        self.nodes_to_numbers.clear()
+        self.__encode_nodes()
     """Uaktualnia listę sąsiedztwa i listę krawędzi przy użyciu macieży sąsiedztwa"""
     def update_structure(self):
         index = len(self.adjacency_matrix)
+
         for i in range(index):
             self.adjacency_list.clear()
 
