@@ -31,12 +31,10 @@ def generate_nodes_positions(edges: Edge = []):
         nodes.add(edge.second)
 
     sorted_nodes = sorted(nodes)
-
-    nodes_number = len(edges)
     nodes_dict = {}
 
     y = 0
-    for x in range(nodes_number - 1):
+    for x in range(len(sorted_nodes)):
         if x % 3 == 0:
             y += 1
             
@@ -83,13 +81,11 @@ def draw_graph(edges: Edge = []):
 
 
 if __name__ == "__main__":
-    edges = [Edge("A", "B", 4, 0),
-            Edge("A", "C", 3, 0),
-            Edge("C", "E", 2, 0),
-            Edge("B", "E", 3, 0),
-            Edge("B", "D", 4, 0),
-            Edge("D", "E", 6, 1),
-            Edge("G", "A", 1, 0),
-            Edge("Z", "A", 5, 7)]
+    edges = [Edge("A", "B", 1, 2),
+            Edge("A", "D", 1, 2),
+            Edge("A", "E", 1, 2),
+            Edge("D", "E", 1, 2),
+            Edge("E", "C", 1, 2),
+            Edge("E", "F", 1, 2)]
 
     draw_graph(edges)
