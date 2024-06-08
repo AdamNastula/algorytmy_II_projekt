@@ -279,6 +279,16 @@ def get_distance_between_all_points(points: Point = []) -> float:
 def generate_random_points(num_points: int, range_min: int, range_max: int) -> List[Point]:
     return [Point(random.randint(range_min, range_max), random.randint(range_min, range_max)) for _ in range(num_points)]
 
+def get_points_from_text() -> List[Point]:
+    points_number = int(input("Podaj ilosc punktow\n"))
+    points = []
+
+    for i in range(points_number):
+        data = input()
+        point = data.split(" ")
+        points.append(Point(int(point[0]), int(point[1])))
+
+    return points
 
 if __name__ == "__main__":
     points = [Point(4, 4), Point(4, 6), Point(4, 7),
@@ -393,9 +403,12 @@ if __name__ == "__main__":
     print(convex_hull_points)
     draw_convex_hull(points4, convex_hull_points)
 
-    print(get_distance_between_all_points(convex_hull_points))
+    # print(get_distance_between_all_points(convex_hull_points))
 
     # random_points = generate_random_points(100, 0, 200)
     # convex_hull_points_2 = calculate_hull(random_points)['convex_hull']
     # print(convex_hull_points_2)
     # draw_convex_hull(random_points, convex_hull_points_2)
+
+    # p = get_points_from_text()
+    # print(p)
