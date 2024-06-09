@@ -12,7 +12,7 @@ class EdmondsKarp:
     def find_possible_path(self, source, sink):
         bfss = bfs_f.bfs(self.residual)
         bfss.bfs_visit(source)
-        test = bfss.returnPath(source, sink)
+        test = bfss.return_path(source, sink)
         return test
     """Szuka maxymalnego przepływu na podanej ścierzce"""
     def find_max_path_capacity(self, path):
@@ -62,7 +62,6 @@ class EdmondsKarp:
         return max_flow
 
 if __name__ == "__main__":
-
     edges = []
     edges.append(wg.Edge("A", "B", 4, 0))
     edges.append(wg.Edge("A", "C", 3, 0))

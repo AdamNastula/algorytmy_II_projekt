@@ -25,14 +25,12 @@ class Graph:
         self.__encode_nodes()
 
     """Wewnętrzna funkcja. Zapsiuje na set wszystkie wierzcholki w grafie."""
-
     def __unpack_nodes(self):
         for edge in self.edges:
             self.node_list.add(edge.first)
             self.node_list.add(edge.second)
 
     """Wewnetrzna funkcja. Zamienia node'y z str na liczbe naturalna i przechowuje info w odpowiednich slownikach"""
-
     def __encode_nodes(self):
         counter = 0
 
@@ -44,22 +42,22 @@ class Graph:
             counter += 1
 
     """Dodaje nowa krawedz do grafu"""
-
     def add_new_connection(self, edge: Edge):
         self.edges.append(edge)
         self.node_list.add(edge.first)
         self.node_list.add(edge.second)
 
     """Wypisuje wszystkie krawedzie w grafie wraz z wagami"""
-
     def print_all_edges(self):
         for edge in self.edges:
             print(edge)
+
     """Uaktualnia słowniki po dodaniu nowych połączeń"""
     def update_nodes(self):
         self.numbers_to_nodes.clear()
         self.nodes_to_numbers.clear()
         self.__encode_nodes()
+    
     """Uaktualnia listę sąsiedztwa i listę krawędzi przy użyciu macieży sąsiedztwa"""
     def update_structure(self):
         index = len(self.adjacency_matrix)
@@ -81,8 +79,16 @@ class Graph:
         print(f'Wszystkie wierzcholki w grafie ({len(self.node_list)}): ', end="")
         print(" ".join(sorted(self.node_list)))
 
-    """Wypelnia liste sasiedztwa (bez informacji o przeplywie i przepustowosci)"""
+    """zmienia graf na liste wierzcholkow"""
+    def parse_graph_to_edges(self) -> List[Edge]:
+        edges = []
 
+        for edge in self.edges:
+            edges.append(edge)
+
+        return edges
+
+    """Wypelnia liste sasiedztwa (bez informacji o przeplywie i przepustowosci)"""
     def create_adjacency_list(self):
         for node in self.node_list:
             self.adjacency_list[node] = []
@@ -91,7 +97,6 @@ class Graph:
             self.adjacency_list[edge.first].append(edge.second)
 
     """Wypelnia macierz sasiedztwa (z informacja o przeplywie i przepustowosci)"""
-
     def create_adjacency_matrix(self):
         self.adjacency_matrix = [[[0, 0] for x in range(len(self.node_list))] for y in range(len(self.node_list))]
 
@@ -101,7 +106,6 @@ class Graph:
             #self.adjacency_matrix[self.nodes_to_numbers[edge.second]][self.nodes_to_numbers[edge.first]] = [edge.flow,edge.capacity]
 
     """Wypisuje macierz sasiedztwa (z informacja o przeplywie i przepustowosci)"""
-
     def print_adjacency_matrix(self):
         for row in self.adjacency_matrix:
             print(row)
@@ -113,7 +117,6 @@ class Graph:
             print(node, self.adjacency_list[node])
 
     """Funkcja ustawi nowa wartosc przeplywu na podanej sciezce (sciezka taka jaka zwraca bfs)"""
-
     def update_flow_on_path(self, path, new_flow):
         index = len(path) - 1
 

@@ -1,8 +1,17 @@
-import string
+from typing import List
 import networkx as nx
 import pandas as pd
 import matplotlib.pyplot as plt
-from weighted_graph import Edge
+from weighted_graph import Edge, Graph
+
+# zmienia graf na liste wierzcholkow, zeby kod byl bardziej przejrzysty
+# def parse_graph_to_edges(graph: Graph) -> List[Edge]:
+#     edges = []
+
+#     for edge in graph.edges:
+#         edges.append(edge)
+
+#     return edges
 
 def parse_edges_to_df(edges: Edge = []) -> dict:
     data = {
@@ -26,26 +35,34 @@ def parse_edges_to_df(edges: Edge = []) -> dict:
 # edytujac wartosc z mod. inaczej by sie generowaly losowo i grafy czesto byly nieczytelne
 def generate_nodes_positions(edges: Edge = []):
     nodes = set()
+
     for edge in edges:
         nodes.add(edge.first)
         nodes.add(edge.second)
 
     sorted_nodes = sorted(nodes)
     nodes_dict = {}
-
     y = 0
+    nodes_number_in_row = 3
+
     for x in range(len(sorted_nodes)):
-        if x % 3 == 0:
+        if x % nodes_number_in_row == 0:
             y += 1
             
-        nodes_dict[sorted_nodes[x]] = (x % 3, y)
+        nodes_dict[sorted_nodes[x]] = (x % nodes_number_in_row, y)
 
     return nodes_dict
 
-def draw_graph(edges: Edge = []):
+
+def draw_graph(argument):
+    edges = []
+    if type (argument) is Graph:
+        edges = argument.parse_graph_to_edges()
+    elif type (argument) is list:
+        edges = argument
+
     data = parse_edges_to_df(edges)
     df = pd.DataFrame(data)
-
     graph = nx.MultiDiGraph()
 
     # dodawanie krawedzi z dataframe

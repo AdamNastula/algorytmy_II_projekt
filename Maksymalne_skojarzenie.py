@@ -1,5 +1,6 @@
 import weighted_graph as wg
 import Edmonds_Karp as ek
+from draw_graph import draw_graph
 
 class Max_Skoj:
     def __init__(self, graph):
@@ -38,10 +39,6 @@ class Max_Skoj:
                 print("connection: from ",self.edmonds.graph.adjacency_list[node][0]," to ",node)
 
 
-
-
-
-
 if __name__ == "__main__":
 
     edges = []
@@ -55,6 +52,8 @@ if __name__ == "__main__":
     edges.append(wg.Edge("E", "H", 1, 0))
 
     graph = wg.Graph(edges)
+    
+    draw_graph(graph)
 
     skoja = Max_Skoj(graph)
 

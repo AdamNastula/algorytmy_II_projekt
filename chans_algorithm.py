@@ -1,6 +1,7 @@
 from functools import cmp_to_key
 import random
 import math
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from typing import List
@@ -186,7 +187,7 @@ def jarvis_march(m, sub_hulls):
     point0 = Point(0, convex_hull[0].y)
 
     for i in range(int(m)):
-        max_angle = -99999999
+        max_angle = -sys.maxsize - 1
         pk1 = None
         last = point0 if i == 0 else convex_hull[i - 1]
 
@@ -399,16 +400,16 @@ if __name__ == "__main__":
         Point(36, 58)
 ]
 
-    convex_hull_points = calculate_hull(points4)['convex_hull']
-    print(convex_hull_points)
-    draw_convex_hull(points4, convex_hull_points)
+    # convex_hull_points = calculate_hull(points4)['convex_hull']
+    # print(convex_hull_points)
+    # draw_convex_hull(points4, convex_hull_points)
 
     # print(get_distance_between_all_points(convex_hull_points))
 
-    # random_points = generate_random_points(100, 0, 200)
-    # convex_hull_points_2 = calculate_hull(random_points)['convex_hull']
-    # print(convex_hull_points_2)
-    # draw_convex_hull(random_points, convex_hull_points_2)
+    random_points = generate_random_points(100, 0, 200)
+    convex_hull_points_2 = calculate_hull(random_points)['convex_hull']
+    print(convex_hull_points_2)
+    draw_convex_hull(random_points, convex_hull_points_2)
 
     # p = get_points_from_text()
     # print(p)

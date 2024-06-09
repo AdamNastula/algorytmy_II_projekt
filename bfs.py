@@ -29,7 +29,7 @@ class bfs:
         self.paths = paths
 
     """Zwraca sciezke "od tylu" (patrz przyklad) w postaci listy kolejno odwiedzanych wierzcholkow"""
-    def returnPath(self, source, dest):
+    def return_path(self, source, dest):
         path = []
 
         while (True):
@@ -58,4 +58,4 @@ if __name__ == "__main__":
     graph = wg.Graph(edges)
     bfss = bfs(graph)
     bfss.bfs_visit("A")
-    print(bfss.returnPath("A", "C"))
+    print(bfss.return_path("A", "C"))
