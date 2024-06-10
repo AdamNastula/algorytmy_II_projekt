@@ -18,23 +18,18 @@ class tower:
 
 def find_paths(start, old, max_path, rests, towers_list, return_list):
     if (old != None):
-        if (old.brightness < start.brightness):
+        if (towers[old].brightness < towers[start].brightness):
             rests += 1
 
-    if (start == towers_list[-1]):
+    if (start == len(towers) - 1):
         return_list.append(rests)
-        
         return
     
-    i = 0
-    while (towers_list[i] != start):
-        i += 1
-    
     for j in range(max_path):
-        if (i + j + 1 >= len(towers_list)):
+        if (start + j + 1 >= len(towers_list)):
             break
         
-        find_paths(towers[i + j + 1], start, max_path, rests, towers_list, return_list)
+        find_paths(start + j + 1, start, max_path, rests, towers_list, return_list)
 
 towers = []
 plaszczaki = []
@@ -54,5 +49,6 @@ for i in range(plaszczaki_quantity):
 
 max_path = int(input())
 return_list = []
-find_paths(towers[0], None, max_path, 0, towers, return_list)
+towers.append(towers[0])
+find_paths(0, None, max_path, 0, towers, return_list)
 print(min(return_list))
