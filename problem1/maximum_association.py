@@ -1,7 +1,7 @@
 import weighted_graph as wg
 import Edmonds_Karp as ek
 
-class Max_Skoj:
+class Max_association:
     def __init__(self, graph):
         self.graph = graph
         self.graph.create_adjacency_matrix()
@@ -29,13 +29,13 @@ class Max_Skoj:
     """Szuka maxymalnego przepływu w przygotowanym grafie"""
     def calculate_max_connections(self):
         self.edmonds = ek.EdmondsKarp(self.graph)
-        print(self.edmonds.find_max_flow("Start","End"))
+        print("Maksymalna ilość par to :",self.edmonds.find_max_flow("Start","End"))
     """Wyświetla znalezione połączenia przy maksymalnym przepływie"""
     def print_connections(self):
         for node in sorted(self.edmonds.graph.node_list):
 
             if (node in self.back_hands and self.edmonds.graph.adjacency_list[node][0]!="End"):
-                print("connection: from ",self.edmonds.graph.adjacency_list[node][0]," to ",node)
+                print("Płaszczak z rękoma z przodu o imieniu:",self.edmonds.graph.adjacency_list[node][0],"pracuje z płaszczakiem z rękoma z tyłu o imieniu:",node)
 
 
 if __name__ == "__main__":
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     
     # draw_graph(graph)
 
-    skoja = Max_Skoj(graph)
+    Family = Max_association(graph)
 
     #skoja.edmonds.graph.print_all_connections()
-    skoja.print_connections()
+    Family.print_connections()
