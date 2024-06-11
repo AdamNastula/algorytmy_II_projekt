@@ -1,8 +1,8 @@
-import math
-import matplotlib.pyplot as plt
-import dataclasses
 import numpy as np
+import matplotlib.pyplot as plt
 
+import math
+import dataclasses
 
 @dataclasses.dataclass(frozen=True)
 class Point:
@@ -12,11 +12,9 @@ class Point:
     def Distance(self, point):
         return math.sqrt(math.pow((point.x - self.x), 2) + math.pow((point.y - self.y), 2))
 
-
 def det(a: Point, b: Point, c: Point) -> int:
     n_array = np.array([[a.x, a.y, 1], [b.x, b.y, 1], [c.x, c.y, 1]])
     return int(np.linalg.det(n_array))
-
 
 """sprawdza, czy punkt znajduje sie na prostej"""
 def is_on_line(a: Point, b: Point, c: Point) -> bool:
@@ -27,7 +25,6 @@ def is_on_line(a: Point, b: Point, c: Point) -> bool:
     if (b.x - a.x)*(c.y - a.y) != (c.x - a.x)*(b.y - a.y):
         return False
     return True
-
 
 """sprawdza wspolliniowosc"""
 def check_multicollinearity(a: Point, b: Point, c: Point, d: Point) -> bool:
@@ -44,7 +41,6 @@ def check_multicollinearity(a: Point, b: Point, c: Point, d: Point) -> bool:
     elif min(a.x, b.x) <= d.x <= max(a.x, b.x) and min(a.y, b.y) <= d.y <= max(a.y, b.y):
         return True
     return False
-
 
 """sprawdza, czy proste sie przecinaja"""
 def intersection(a: Point, b: Point, c: Point, d: Point) -> bool:
@@ -138,21 +134,21 @@ if __name__ == "__main__":
     figure, axis = plt.subplots(2, 2, figsize=(12, 12)) 
 
     """axis w tej funkcji wyznacza pozycje, na ktorej bedzie narysowany graf"""
-    drawGraphic(
+    draw_graphic(
         axis[0, 0],
         Point(1, 3),
         Point(3, 3),
         Point(5, 3),
         Point(7, 3))
     
-    drawGraphic(
+    draw_graphic(
         axis[0, 1],
         Point(2, 1),
         Point(2, 6),
         Point(2, 5),
         Point(5, 5))
     
-    drawGraphic(
+    draw_graphic(
         axis[1, 0],
         Point(2, 1),
         Point(4, 3),
@@ -160,7 +156,7 @@ if __name__ == "__main__":
         Point(4, 6)
     )
 
-    drawGraphic(
+    draw_graphic(
         axis[1, 1],
         Point(2, 2),
         Point(4, 4),

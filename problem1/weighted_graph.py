@@ -1,7 +1,6 @@
 import dataclasses
 from typing import Dict, Set, Tuple, Union, List
 
-
 @dataclasses.dataclass()
 class Edge():
     first: Union[int, str]

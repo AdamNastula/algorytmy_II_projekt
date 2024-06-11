@@ -1,8 +1,8 @@
-from typing import List
 import networkx as nx
 import pandas as pd
 import matplotlib.pyplot as plt
-from weighted_graph import Edge, Graph
+
+from problem1.weighted_graph import Edge, Graph
 
 # zmienia graf na liste wierzcholkow, zeby kod byl bardziej przejrzysty
 # def parse_graph_to_edges(graph: Graph) -> List[Edge]:

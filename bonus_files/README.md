@@ -1,0 +1,1 @@
+W tym folderze znadują się pliki, które zostały przez nas napisane, ale nie przydały się do zrobienia projektu.

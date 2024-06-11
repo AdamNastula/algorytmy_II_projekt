@@ -1,10 +1,12 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
 from functools import cmp_to_key
 import random
 import math
 import sys
-import numpy as np
-import matplotlib.pyplot as plt
 from typing import List
+
 from intersection import Point
 
 def calculate_distance(a: Point, b: Point) -> int:

@@ -1,8 +1,8 @@
+import names
+
 import dataclasses
 import random
 from typing import List
-
-import names
 
 import chans_algorithm as chan
 from intersection import Point

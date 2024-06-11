@@ -1,6 +1,5 @@
 import weighted_graph as wg
 import Edmonds_Karp as ek
-from draw_graph import draw_graph
 
 class Max_Skoj:
     def __init__(self, graph):
@@ -53,7 +52,7 @@ if __name__ == "__main__":
 
     graph = wg.Graph(edges)
     
-    draw_graph(graph)
+    # draw_graph(graph)
 
     skoja = Max_Skoj(graph)
 
