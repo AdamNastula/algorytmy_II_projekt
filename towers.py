@@ -46,7 +46,7 @@ def print_towers_data(towers: List[Tower]):
 
 # zapisuje dane wiezy do pliku .txt
 def save_towers_data_to_file(towers: List[Tower]):
-    with open('towers_data.py', 'w') as file:
+    with open('towers_data.txt', 'w') as file:
         file.write(str(len(towers)))
         file.write("\n")
 
@@ -72,7 +72,7 @@ def generate_problem3_data(flatlanders_number, rest_frequency, tower_range_min, 
     towers = generate_brightness(random_points, tower_range_min, tower_range_max)
     flatlanders = generate_flatlanders(flatlanders_number, flatlander_range_min, flatlander_range_max)
 
-    with open('problem3_data.py', 'w') as file:
+    with open('problem3_data.txt', 'w') as file:
         file.write(str(len(towers)))
         file.write("\n")
 
