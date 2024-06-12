@@ -9,14 +9,20 @@ from utils.intersection import Point
 
 @dataclasses.dataclass(frozen=True)
 class Tower:
-    x: int
-    y: int
+    x: float
+    y: float
     brightness: int
 
 @dataclasses.dataclass(frozen=True)
 class Flatlander:
     name: str
-    stamina: int
+    energy: int
+
+    def __lt__(self, other):
+        return self.energy > other.energy
+    
+    def __eq__(self, other):
+        return self.energy == other.energy
 
 # tymczasowa funkcja, do usuniecia
 def generate_towers(number_of_towers, number_of_flatlanders, rest_frequency, range_min, range_max):

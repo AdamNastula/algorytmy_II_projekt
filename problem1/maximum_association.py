@@ -29,13 +29,14 @@ class Max_association:
     """Szuka maxymalnego przepływu w przygotowanym grafie"""
     def calculate_max_connections(self):
         self.edmonds = ek.EdmondsKarp(self.graph)
-        print("Maksymalna ilosc par to:",self.edmonds.find_max_flow("Start","End"))
+        print(self.edmonds.find_max_flow("Start","End"))
+
     """Wyświetla znalezione połączenia przy maksymalnym przepływie"""
     def print_connections(self):
         for node in sorted(self.edmonds.graph.node_list):
 
             if (node in self.back_hands and self.edmonds.graph.adjacency_list[node][0]!="End"):
-                print("Plaszczak z rekoma z przodu o imieniu:",self.edmonds.graph.adjacency_list[node][0],"pracuje z plaszczakiem z rekoma z tylu o imieniu:",node)
+                print(self.edmonds.graph.adjacency_list[node][0], node)
 
 
 if __name__ == "__main__":

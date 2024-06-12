@@ -43,7 +43,7 @@ def generate_nodes_positions(edges: Edge = []):
     sorted_nodes = sorted(nodes)
     nodes_dict = {}
     y = 0
-    nodes_number_in_row = 3
+    nodes_number_in_row = 6
 
     for x in range(len(sorted_nodes)):
         if x % nodes_number_in_row == 0:

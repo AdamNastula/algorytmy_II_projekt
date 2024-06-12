@@ -1,13 +1,8 @@
 import problem1.weighted_graph as wg
 import  problem1.maximum_association as ms
+from utils.draw_graph import draw_graph
 
 def solve_problem_1a(friends_list):
-    print(f"Do zbudowania plotu zostaje wyznaczone {len(friends_list)} plaszczakow")
-    for pair in friends_list:
-        print(pair[0] + " " + pair[1])
-
-    print("Tworzymy maksymalne skojarzenie otrzymanych par.")
-
     edges = []
     for friends in friends_list:
         if len(friends) == 2:
@@ -17,6 +12,7 @@ def solve_problem_1a(friends_list):
     graph = wg.Graph(edges)
     family = ms.Max_association(graph)
     family.print_connections()
+    #draw_graph(graph)
 
 def test():
     data= [

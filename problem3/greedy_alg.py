@@ -1,9 +1,3 @@
-class tower:
-    def __init__(self, x, y, brightness):
-        self.x = x
-        self.y = y
-        self.brightness = brightness 
-    
 def find_rest_spots(current_stop, previous_stop, max_distance, rests_quantity, towers, rest_spots):
     rest_val = ""
 
