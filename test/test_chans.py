@@ -1,6 +1,6 @@
 import unittest
-from intersection import Point
-import chans_algorithm as chan
+from utils.intersection import Point
+import utils.chans_algorithm as chan
 
 class Test_Chans_algorithm(unittest.TestCase):
     def test_1(self):

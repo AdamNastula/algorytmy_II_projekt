@@ -7,7 +7,7 @@ import math
 import sys
 from typing import List
 
-from intersection import Point
+from utils.intersection import Point
 
 def calculate_distance(a: Point, b: Point) -> int:
     return (a.x - b.x)**2 - (a.y - b.y)**2

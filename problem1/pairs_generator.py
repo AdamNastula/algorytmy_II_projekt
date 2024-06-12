@@ -30,11 +30,3 @@ def save_pairs_to_file(pairs):
     with open('flatlanders_pairs.txt', 'w') as file:
         for pair in pairs:
             file.write(pair[0] + " " + pair[1] + "\n")
-
-
-if __name__ == "__main__":
-    pairs = generate_pairs(20)
-
-    print(pairs)
-
-    save_pairs_to_file(pairs)

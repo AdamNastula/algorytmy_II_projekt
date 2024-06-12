@@ -4,8 +4,8 @@ import dataclasses
 import random
 from typing import List
 
-import chans_algorithm as chan
-from intersection import Point
+import utils.chans_algorithm as chan
+from utils.intersection import Point
 
 @dataclasses.dataclass(frozen=True)
 class Tower:

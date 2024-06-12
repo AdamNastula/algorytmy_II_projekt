@@ -1,5 +1,5 @@
-import weighted_graph as wg
-import Edmonds_Karp as ek
+import problem1.weighted_graph as wg
+import problem1.Edmonds_Karp as ek
 
 class Max_association:
     def __init__(self, graph):
@@ -29,13 +29,13 @@ class Max_association:
     """Szuka maxymalnego przepływu w przygotowanym grafie"""
     def calculate_max_connections(self):
         self.edmonds = ek.EdmondsKarp(self.graph)
-        print("Maksymalna ilość par to :",self.edmonds.find_max_flow("Start","End"))
+        print("Maksymalna ilosc par to:",self.edmonds.find_max_flow("Start","End"))
     """Wyświetla znalezione połączenia przy maksymalnym przepływie"""
     def print_connections(self):
         for node in sorted(self.edmonds.graph.node_list):
 
             if (node in self.back_hands and self.edmonds.graph.adjacency_list[node][0]!="End"):
-                print("Płaszczak z rękoma z przodu o imieniu:",self.edmonds.graph.adjacency_list[node][0],"pracuje z płaszczakiem z rękoma z tyłu o imieniu:",node)
+                print("Plaszczak z rekoma z przodu o imieniu:",self.edmonds.graph.adjacency_list[node][0],"pracuje z plaszczakiem z rekoma z tylu o imieniu:",node)
 
 
 if __name__ == "__main__":

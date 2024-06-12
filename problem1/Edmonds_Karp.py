@@ -1,7 +1,7 @@
 import copy
 
-import weighted_graph as wg
-import bfs as bfs_f
+import problem1.weighted_graph as wg
+import problem1.bfs as bfs_f
 
 class EdmondsKarp:
     def __init__(self, graph):

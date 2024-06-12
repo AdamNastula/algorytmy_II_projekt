@@ -1,6 +1,6 @@
 from collections import deque
 
-import weighted_graph as wg
+import problem1.weighted_graph as wg
 
 """Od profesora Mroza wyklad 11 (mozna zajrzec jak kod jest niejasny)"""
 class bfs:

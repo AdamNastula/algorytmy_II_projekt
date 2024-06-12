@@ -1,5 +1,5 @@
 import unittest
-import intersection as intersection
+import utils.intersection as intersection
 
 class Test_intersection(unittest.TestCase):
     def test_1_true(self):
