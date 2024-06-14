@@ -31,6 +31,18 @@ def parse_edges_to_df(edges: Edge = []) -> dict:
 
     return data
 
+def parse_edges_to_ma_df(edges: Edge = []) -> dict:
+    data = {
+        'source': [],
+        'target': [],
+    }
+
+    for edge in edges:
+        data['source'].append(edge.first)
+        data['target'].append(edge.second)
+
+    return data
+
 # wierzcholki sa ustawione w taki sposob, zeby byly po 3 w rzedzie, mozna to zmienic,
 # edytujac wartosc z mod. inaczej by sie generowaly losowo i grafy czesto byly nieczytelne
 def generate_nodes_positions(edges: Edge = []):
@@ -53,14 +65,33 @@ def generate_nodes_positions(edges: Edge = []):
 
     return nodes_dict
 
+def generate_ma_nodes_positions(edges: Edge = []):
+    nodes = set()
 
-def draw_graph(argument):
+    for edge in edges:
+        nodes.add(edge.first)
+        nodes.add(edge.second)
+
+    sorted_nodes = sorted(nodes)
+    nodes_dict = {}
+    y = 0
+
+    for x in range(len(sorted_nodes) / 2):
+        nodes_dict[sorted_nodes]
+
+
+
+def get_edges(argument):
     edges = []
     if type (argument) is Graph:
         edges = argument.parse_graph_to_edges()
     elif type (argument) is list:
         edges = argument
 
+    return edges
+
+def draw_graph(argument):
+    edges = get_edges(argument)
     data = parse_edges_to_df(edges)
     df = pd.DataFrame(data)
     graph = nx.MultiDiGraph()
@@ -95,6 +126,16 @@ def draw_graph(argument):
         ax.text(x + offset_x, y + offset_y, f'{d["weight"]}', fontsize=8, ha='center', va='center')
 
     plt.show()
+
+def draw_maximum_association(argument):
+    edges = get_edges(argument)
+    data = parse_edges_to_ma_df(edges)
+    df = pd.DataFrame(data)
+    graph = nx.MultiDiGraph()
+
+    # dodawanie krawedzi z dataframe
+    for _, row in df.iterrows():
+        graph.add_edge(row['source'], row['target'])
 
 
 if __name__ == "__main__":

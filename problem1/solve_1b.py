@@ -12,6 +12,8 @@ def solve_problem_1b(points):
         print(point.x, point.y)
     ch.draw_convex_hull(points, fence)
 
+    return fence
+
 if __name__ == "__main__":
     points = [
         intersection.Point(42, 67),

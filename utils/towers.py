@@ -61,11 +61,18 @@ def save_towers_data_to_file(towers: List[Tower]):
             file.write(line)
             file.write("\n")
 
-def generate_flatlanders(flatlanders_number, min_stamina, max_stamina: int) -> List[Flatlander]:
+def generate_flatlanders() -> List[Flatlander]:
     flatlanders = []
+    FLATLANDERS_NUM = 20
+    MIN_STAMINA = 0
+    MAX_STAMINA = 100
 
-    for i in range(flatlanders_number):
-        flatlanders.append(Flatlander(names.get_first_name(), random.randint(min_stamina, max_stamina)))
+    i = 0
+    while i < FLATLANDERS_NUM:
+        flatlander = Flatlander(names.get_first_name(), random.randint(MIN_STAMINA, MAX_STAMINA))
+        if flatlander not in flatlanders:
+            flatlanders.append(flatlander)
+            i += 1
 
     return flatlanders
 
