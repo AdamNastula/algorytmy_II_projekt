@@ -7,7 +7,7 @@ import math
 import sys
 from typing import List
 
-from utils.intersection import Point
+from utils.intersection import Point, det
 
 def calculate_distance(a: Point, b: Point) -> int:
     return (a.x - b.x)**2 - (a.y - b.y)**2
@@ -16,11 +16,13 @@ def calculate_distance(a: Point, b: Point) -> int:
 def get_area_between_3_points(a: Point, b: Point, c: Point) -> float:
     return ((b.x - a.x) * (a.y - c.y) - (c.x - a.x) * (a.y - b.y))
 
-
 def get_angle_between_3_points(a: Point, b: Point, c: Point) -> float:
     ab = math.sqrt(math.pow(b.x - a.x, 2) + math.pow(b.y - a.y, 2))
     bc = math.sqrt(math.pow(b.x - c.x, 2) + math.pow(b.y - c.y, 2))
     ac = math.sqrt(math.pow(c.x - a.x, 2) + math.pow(c.y - a.y, 2))
+
+    if(a == b or b == c or a == b):
+        return 0
 
     arccos = (pow(bc, 2) + pow(ab, 2) - pow(ac, 2)) / (2 * bc * ab)
 
@@ -72,7 +74,7 @@ def graham_scan(points: Point = []):
     lowest_point = find_lowest_point(points)
 
     if (lowest_point):
-        sort_points_by_angle(lowest_point,points)
+        sort_points_by_angle(lowest_point, points)
     
     """zwracamy od razu punkty, jesli jest ich 4 lub mniej, bo wtedy graham scan nie jest potrzebny"""
     if len(points) < 4:
@@ -111,7 +113,7 @@ def graham_scan(points: Point = []):
 def tangent_binary_search(hull, a, b):
     def find_angle(parameter: int):
         if is_same_point(b, hull[parameter]):
-            return -999
+            return -sys.maxsize - 1
         else:
             return get_angle_between_3_points(a, b, hull[parameter])
 
@@ -156,7 +158,7 @@ def tangent_binary_search(hull, a, b):
         if mid is not None:
             mid_angle = find_angle(mid)
         else:
-            mid_angle = -9999
+            mid_angle = -sys.maxsize - 1
 
         max_left = max(start_angle, left_angle)
         max_right = max(right_angle, end_angle)
@@ -214,6 +216,7 @@ def calculate_partial_hulls(m, points: Point = []):
     partition.append([])
     ph_index = 0
 
+    # dzielimy punkty na grupy po m elementow
     for i in range(len(points)):
         if i >= (ph_index + 1) * m:
             ph_index += 1
@@ -222,6 +225,7 @@ def calculate_partial_hulls(m, points: Point = []):
 
     hulls = []
     
+    # uzywamy graham scan, zeby z mniejszych grup punktow stworzyc otoczki wypukle
     for i in range(len(partition)):
         hull = graham_scan(partition[i])
         hulls.append(hull)
@@ -282,6 +286,7 @@ def get_distance_between_all_points(points: Point = []) -> float:
 def generate_random_points(num_points: int, range_min: int, range_max: int) -> List[Point]:
     return [Point(random.randint(range_min, range_max), random.randint(range_min, range_max)) for _ in range(num_points)]
 
+
 def get_points_from_text() -> List[Point]:
     points_number = int(input("Podaj ilosc punktow\n"))
     points = []
@@ -292,6 +297,7 @@ def get_points_from_text() -> List[Point]:
         points.append(Point(int(point[0]), int(point[1])))
 
     return points
+
 
 if __name__ == "__main__":
     points = [Point(4, 4), Point(4, 6), Point(4, 7),
@@ -408,10 +414,30 @@ if __name__ == "__main__":
 
     # print(get_distance_between_all_points(convex_hull_points))
 
-    random_points = generate_random_points(100, 0, 200)
-    convex_hull_points_2 = calculate_hull(random_points)['convex_hull']
-    print(convex_hull_points_2)
-    draw_convex_hull(random_points, convex_hull_points_2)
+    # random_points = generate_random_points(300, 0, 50)
+    # convex_hull_points_2 = calculate_hull(random_points)['convex_hull']
+    # draw_convex_hull(random_points, convex_hull_points_2)
+
+    test = [
+        Point(1, 10),
+        Point(10, 1),
+        Point(10, 10),
+        Point(3, 2),
+        Point(1, 1),
+    ]
+
+    test_hull = calculate_hull(test)['convex_hull']
+    draw_convex_hull(test, test_hull)
+
+    print(test_hull)
+
+    # print(points3)
+    # draw_convex_hull(points3, convex_hull_points_2)
+
+    # sub = calculate_hull(points3)['partial_hulls']
+
+    # for s in sub:
+    #     print(f"{len(s)}", s)
 
     # p = get_points_from_text()
     # print(p)

@@ -40,7 +40,6 @@ class Max_association:
 
 
 if __name__ == "__main__":
-
     edges = []
     edges.append(wg.Edge("A", "F", 1, 0))
     edges.append(wg.Edge("B", "F", 1, 0))

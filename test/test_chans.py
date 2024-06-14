@@ -3,7 +3,7 @@ from utils.intersection import Point
 import utils.chans_algorithm as chan
 
 class Test_Chans_algorithm(unittest.TestCase):
-    def test_1(self):
+    def test1(self):
         points = [
             Point(10, 33),
             Point(25, 47),
@@ -67,7 +67,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         for pair in zip(expected_hull, hull):
             self.assertEqual(pair[0], pair[1])
 
-    def test_2(self):
+    def test2(self):
         points = [
             Point(42, 67),
             Point(15, 89),
@@ -133,7 +133,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         for pair in zip(expected_hull, hull):
             self.assertEqual(pair[0], pair[1])
 
-    def test_3(self):
+    def test3(self):
         points = [
             Point(4, 4),
             Point(4, 6),
@@ -154,3 +154,23 @@ class Test_Chans_algorithm(unittest.TestCase):
         hull = chan.calculate_hull(points)['convex_hull']
         for pair in zip(expected_hull, hull):
             self.assertEqual(pair[0], pair[1])
+
+    def test4(self):
+        points = [        
+            Point(1, 10),
+            Point(10, 1),
+            Point(10, 10),
+            Point(3, 2),
+            Point(1, 1)
+        ]
+
+        expected_hull = [
+            Point(1, 10),
+            Point(10, 10), 
+            Point(10, 1), 
+            Point(1, 1)
+        ]
+
+        hull = chan.calculate_hull(points)['convex_hull']
+        for pair in zip(expected_hull, hull):
+            self.assertAlmostEqual(pair[0], pair[1])
