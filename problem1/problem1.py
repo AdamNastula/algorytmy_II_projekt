@@ -24,17 +24,9 @@ for i in range(points_quantity):
 solve_problem_1a(flatlanders_pairs)
 convex_hull = solve_problem_1b(points)
 
-# path = ""
-# if platform == "win32":
-#     path = "problem3\\problem1_result.txt"
-# else:
-#     path = 'problem3/problem1_result.txt'
-
 base_dir = "problem3"
 filename = "problem1_result.txt"
 
-#path = osos.path.join(os.getcwd(), '..', 'problem3', 'problem1_result.txt').realpath()
-#path = os.path.join(base_dir, filename)
 path = Path('.') / 'problem3' / 'problem1_result.txt'
 
 with open(path.resolve(), 'w') as file:
