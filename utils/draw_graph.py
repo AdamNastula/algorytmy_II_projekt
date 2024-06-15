@@ -142,12 +142,22 @@ def draw_graph(argument):
 
     plt.show()
 
+def get_chosen_connections(graph: Max_association):
+    max_connections = []
+
+    for node in sorted(graph.edmonds.graph.node_list):
+        if (node in graph.back_hands and graph.edmonds.graph.adjacency_list[node][0]!="End"):
+            max_connections.append((graph.edmonds.graph.adjacency_list[node][0], node))
+
+    return max_connections
 
 def draw_maximum_association(argument):
     edges, rows = get_edges(argument)
     data = parse_edges_to_ma_df(edges)
     df = pd.DataFrame(data)
     graph = nx.MultiDiGraph()
+
+    max_connections = get_chosen_connections(argument)
 
     # dodawanie krawedzi z dataframe
     for _, row in df.iterrows():
@@ -164,10 +174,16 @@ def draw_maximum_association(argument):
 
     # rysowanie
     for (u, v, key, d) in graph.edges(data=True, keys=True):
-        nx.draw_networkx_edges(
-            graph, position, edgelist=[(u, v)], ax=ax, edge_color=['#5E81FF'], width=2,
-            arrows=True, arrowstyle='-', connectionstyle=f'arc3,rad={0.1 * (key + 1)}'
-        )
+        if (u, v) in max_connections:
+            nx.draw_networkx_edges(
+                graph, position, edgelist=[(u, v)], ax=ax, edge_color=['#5E81FF'], width=2,
+                arrows=True, arrowstyle='-', connectionstyle=f'arc3,rad={0.1 * (key + 1)}'
+            )
+        else:
+            nx.draw_networkx_edges(
+                graph, position, edgelist=[(u, v)], ax=ax, edge_color=['#CCEAFF'], width=2,
+                arrows=True, arrowstyle='-', connectionstyle=f'arc3,rad={0.1 * (key + 1)}'
+            )
 
     plt.show()  
 

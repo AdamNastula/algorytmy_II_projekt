@@ -1,4 +1,5 @@
 from sys import platform
+from pathlib import Path
 
 from utils import intersection
 from problem1.solve_1a import solve_problem_1a
@@ -23,13 +24,20 @@ for i in range(points_quantity):
 solve_problem_1a(flatlanders_pairs)
 convex_hull = solve_problem_1b(points)
 
-path = ""
-if platform == "win32":
-    path = "problem3\\problem1_result.txt"
-else:
-    path = 'problem3/problem1_result.txt'
+# path = ""
+# if platform == "win32":
+#     path = "problem3\\problem1_result.txt"
+# else:
+#     path = 'problem3/problem1_result.txt'
 
-with open(path, 'w') as file:
+base_dir = "problem3"
+filename = "problem1_result.txt"
+
+#path = osos.path.join(os.getcwd(), '..', 'problem3', 'problem1_result.txt').realpath()
+#path = os.path.join(base_dir, filename)
+path = Path('.') / 'problem3' / 'problem1_result.txt'
+
+with open(path.resolve(), 'w') as file:
     file.write(str(len(convex_hull)) + "\n")
     for point in convex_hull:
         file.write(str(point.x) + " " + str(point.y) + "\n")
