@@ -24,15 +24,6 @@ class Flatlander:
     def __eq__(self, other):
         return self.energy == other.energy
 
-# tymczasowa funkcja, do usuniecia
-def generate_towers(number_of_towers, number_of_flatlanders, rest_frequency, range_min, range_max):
-    print(number_of_towers)
-
-    for i in range(number_of_towers):
-        print(f"{random.randint(range_min, range_max)} {random.randint(range_min, range_max)} {random.randint(1, 100)}")
-
-    print(rest_frequency)
-
 # przyjmuje punkty, tworzy otoczke wypukla i generuje dla kazdego jej punktu jasnosc
 def generate_brightness(points: List[Point], range_min, range_max: int) -> List[Tower]:
     convex_hull_points = chan.calculate_hull(points)['convex_hull']

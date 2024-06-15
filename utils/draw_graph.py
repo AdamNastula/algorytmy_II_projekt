@@ -74,17 +74,18 @@ def generate_ma_nodes_positions(edges, rows):
     y2 = 0
 
     for x in range(len(sorted_nodes)):
-        if sorted_nodes[x] == "Start":
+        if sorted_nodes[x] in rows[0]:
+                nodes_dict[sorted_nodes[x]] = (1, y1)
+                y1 += 1
+                continue
+        elif sorted_nodes[x] in rows[1]:
+                nodes_dict[sorted_nodes[x]] = (2, y2)
+                y2 += 1
+                continue
+        elif sorted_nodes[x] == "Start":
             nodes_dict[sorted_nodes[x]] = (0, len(rows[0]) // 2)
         elif sorted_nodes[x] == "End":
             nodes_dict[sorted_nodes[x]] = (3, len(rows[1]) // 2)
-        else:
-            if sorted_nodes[x] in rows[0]:
-                nodes_dict[sorted_nodes[x]] = (1, y1)
-                y1 += 1
-            else:
-                nodes_dict[sorted_nodes[x]] = (2, y2)
-                y2 += 1
 
 
     return nodes_dict
