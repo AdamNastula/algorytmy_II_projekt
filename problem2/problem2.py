@@ -1,25 +1,6 @@
-from Huffman_encoding import encode_huffman_tree, get_codes
-from Boyer_Moore import bm_search
-
-"""
-wejscie: melodia, liczba naturalna okreslajaca ilosc elementow w alfabecie 
-oraz alfabet uzyty do zapisu melodi, przykladowe wejscie:
-
-polipoliAAAApoliBBBBXXXXCCCCWWWWpolipoli
-9
-p
-o
-l
-i
-A
-B
-X
-C
-W
-
-wyjscie: dla kazdej litery w alfabecie jej kod Huffmana
-         poprawiona melodia (zamienione poli na boli)
-"""
+from problem2.Huffman_encoding import encode_huffman_tree, get_codes, compress_message, decompress_message
+from problem2.Boyer_Moore import bm_search
+from problem2.Hamming_codes import encode_message
 
 melody = input()
 list_melody = list(melody)
@@ -43,9 +24,15 @@ if ('b' not in alphabet):
     alphabet.append('b')
 
 tree = encode_huffman_tree(alphabet, fixed_melody)
-codes = []
+codes = {}
 get_codes(tree, "", codes)
-for code in codes:
-    print(code[0], code[1])
+
+for letter, code in codes.items():
+    print(letter, code)
 
 print(fixed_melody)
+compressed_message = compress_message(fixed_melody, codes)
+print(compressed_message)
+print(decompress_message(compressed_message, tree))
+print(len(poli_occurances))
+print(encode_message(compressed_message))
