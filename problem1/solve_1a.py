@@ -1,6 +1,6 @@
 import problem1.weighted_graph as wg
 import  problem1.maximum_association as ms
-from utils.draw_graph import draw_graph
+from utils.draw_graph import draw_maximum_association
 
 def solve_problem_1a(friends_list):
     edges = []
@@ -12,7 +12,7 @@ def solve_problem_1a(friends_list):
     graph = wg.Graph(edges)
     family = ms.Max_association(graph)
     family.print_connections()
-    #draw_graph(graph)
+    draw_maximum_association(family)
 
 def test():
     data= [

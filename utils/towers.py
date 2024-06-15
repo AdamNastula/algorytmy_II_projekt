@@ -106,12 +106,12 @@ if __name__ == "__main__":
     #         Point(10, 10), Point(1, 1), Point(1, 1), Point(5, 6), Point(5, 7)], 0, 100)
     # print(towers)
 
-    # tworzenie losowych wiezy
+    # tworzenie losowych wiez
     towers2 = generate_brightness(chan.generate_random_points(50, 0, 100), 0, 100)
     # print(towers2)
 
-    # print(generate_flatlanders(10, 3, 0, 10))
+    print(generate_flatlanders())
 
-    save_towers_data_to_file(towers2)
+    # save_towers_data_to_file(towers2)
 
-    generate_problem3_data(25, 4, 0, 100, 1, 15)
+    # generate_problem3_data(25, 4, 0, 100, 1, 15)
