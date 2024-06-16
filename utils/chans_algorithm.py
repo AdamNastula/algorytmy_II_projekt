@@ -1,236 +1,70 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from functools import cmp_to_key
+from functools import cmp_to_key, reduce
 import random
-import math
-import sys
 from typing import List
 
-from utils.intersection import Point, det
+from utils.intersection import Point
 
-def calculate_distance(a: Point, b: Point) -> int:
-    return (a.x - b.x)**2 - (a.y - b.y)**2
-
-
-def get_area_between_3_points(a: Point, b: Point, c: Point) -> float:
-    return ((b.x - a.x) * (a.y - c.y) - (c.x - a.x) * (a.y - b.y))
-
-def get_angle_between_3_points(a: Point, b: Point, c: Point) -> float:
-    ab = math.sqrt(math.pow(b.x - a.x, 2) + math.pow(b.y - a.y, 2))
-    bc = math.sqrt(math.pow(b.x - c.x, 2) + math.pow(b.y - c.y, 2))
-    ac = math.sqrt(math.pow(c.x - a.x, 2) + math.pow(c.y - a.y, 2))
-
-    if(a == b or b == c or a == b):
-        return 0
-
-    arccos = (pow(bc, 2) + pow(ab, 2) - pow(ac, 2)) / (2 * bc * ab)
-
-    if (abs(arccos) - 1) < 0.00001: 
-        arccos = np.clip(arccos, -1, 1)
-
-    return math.acos(arccos)
+# https://web.archive.org/web/20120115045246/http://tixxit.net/2010/03/graham-scan
+def _keep_left(hull, r):
+    while len(hull) > 1 and turn(hull[-2], hull[-1], r) != TURN_LEFT:
+            hull.pop()
+    if not len(hull) or hull[-1] != r:
+        hull.append(r)
+    return hull
 
 
-def check_left_turn(a: Point, b: Point, c: Point) -> bool:
-    return get_area_between_3_points(a, b, c) > 0
+def graham_scan(points):
+    points = sorted(points)
+    l = reduce(_keep_left, points, [])
+    u = reduce(_keep_left, reversed(points), [])
+    return l.extend(u[i] for i in range(1, len(u) - 1)) or l
 
-
-"""liczy kat miedzy punktami, wartosc jest podana w radianach"""
-def angle_to_point(lowest_point: Point, compared_point: Point) -> float:
-    return math.atan2(lowest_point.y - compared_point.y, compared_point.x - lowest_point.x)
-
-
-"""zwraca polozony najnizej na plaszczyznie punkt"""
-def find_lowest_point(points: Point = []) -> Point:
-    lowest_point = points[0]
-
-    for point in points:
-        if point.y > lowest_point.y:
-            lowest_point = point
-        elif point.y == lowest_point.y and point.x < lowest_point.x:
-            lowest_point = point
-
-    return lowest_point
-
-
-def is_same_point(a: Point, b: Point) -> bool:
-    if not a or not b:
-        return False
-    return a.x == b.x and a.y == b.y
-
-
-def sort_points_by_angle(lowest_point: Point, points: Point = []):
-    points.sort(key=cmp_to_key(lambda a, b: (
-        -1 if a.y == lowest_point.y and a.x == lowest_point.x else
-        1 if b.y == lowest_point.y and b.x == lowest_point.x else
-        1 if angle_to_point(lowest_point, a) > angle_to_point(lowest_point, b) else -1
-    )))
-
-    return points
-
-
-def graham_scan(points: Point = []):
-    lowest_point = find_lowest_point(points)
-
-    if (lowest_point):
-        sort_points_by_angle(lowest_point, points)
-    
-    """zwracamy od razu punkty, jesli jest ich 4 lub mniej, bo wtedy graham scan nie jest potrzebny"""
-    if len(points) < 4:
-        return points
-    
-    unique_points = set(points)
-    points = list(unique_points)
-
-    sort_points_by_angle(lowest_point, points)
-    
-    stack: Point = []
-    stack.append(points[0])
-    stack.append(points[1])
-
-    index: int = 2
-    stack_length: int = 2
-
-    while index < len(points):
-        stack_length = len(stack)
-
-        if stack_length > 1:
-            left = check_left_turn(stack[stack_length - 2], stack[stack_length - 1], points[index])
-            
-            if (left):
-                stack.append(points[index])
-                index += 1
-            else:
-                stack.pop()
-        else:
-            stack.append(points[index])
-            index += 1
-
-    return stack
-
-
-def tangent_binary_search(hull, a, b):
-    def find_angle(parameter: int):
-        if is_same_point(b, hull[parameter]):
-            return -sys.maxsize - 1
-        else:
-            return get_angle_between_3_points(a, b, hull[parameter])
-
-    length = len(hull)
-
-    start = 0
-    end = length - 1
-    left_split = -1
-    right_split = -1
-    search_size = (end - start) + 1
-
-    if search_size == 1:
-        return 0
-    elif search_size == 2:
-        angle0 = find_angle(0)
-        angle1 = find_angle(1)
-
-        if angle0 > angle1:
-            return 0
-        return 1
-    
-    while search_size > 2:
-        search_size = (end - start) + 1
-
-        start_angle = find_angle(start)
-        end_angle = find_angle(end)
-
-        split = math.floor(search_size / 2) + start
-        mid = None
-        if search_size % 2 == 0:
-            left_split = split - 1
-            right_split = split
-        else:
-            mid = split
-            left_split = split - 1
-            right_split = split + 1
-        
-
-        left_angle = find_angle(left_split)
-        right_angle = find_angle(right_split)
-        
-        if mid is not None:
-            mid_angle = find_angle(mid)
-        else:
-            mid_angle = -sys.maxsize - 1
-
-        max_left = max(start_angle, left_angle)
-        max_right = max(right_angle, end_angle)
-
-        if mid_angle >= left_angle and mid_angle >= right_angle:
-            return mid
-        
-        elif max_left > max_right:
-            end = left_split
-            if start_angle == left_angle:
-                return end
-        else:
-            start = right_split
-            if right_angle == end_angle:
-                return start
-            
-    return start
-
-
-def jarvis_march(m, sub_hulls):
-    if len(sub_hulls) == 1:
-        return sub_hulls[0]
-
-    sub_hulls.sort(key=cmp_to_key(lambda a, b: (
-        1 if a[0].y < b[0].y else -1
-    )))
-
-    convex_hull = []
-    convex_hull.append(sub_hulls[0][0])
-    point0 = Point(0, convex_hull[0].y)
-
-    for i in range(int(m)):
-        max_angle = -sys.maxsize - 1
-        pk1 = None
-        last = point0 if i == 0 else convex_hull[i - 1]
-
-        for j in range(len(sub_hulls)):
-            result = tangent_binary_search(sub_hulls[j], last, convex_hull[i])
-            angle = get_angle_between_3_points(last, convex_hull[i], sub_hulls[j][result])
-
-            if not math.isnan(angle) and angle > max_angle:
-                max_angle = angle
-                pk1 = sub_hulls[j][result]
-
-        if pk1.x == convex_hull[0].x and pk1.y == convex_hull[0].y:
-            return convex_hull
-        
-        convex_hull.append(pk1)
-
-    return False
-    
 
 def calculate_partial_hulls(m, points: Point = []):
-    partition = []
-    partition.append([])
-    ph_index = 0
-
-    # dzielimy punkty na grupy po m elementow
-    for i in range(len(points)):
-        if i >= (ph_index + 1) * m:
-            ph_index += 1
-            partition.append([])
-        partition[ph_index].append(points[i])
-
+    partitions = [points[i:i+m] for i in range(0, len(points), m)]
     hulls = []
     
-    # uzywamy graham scan, zeby z mniejszych grup punktow stworzyc otoczki wypukle
-    for i in range(len(partition)):
-        hull = graham_scan(partition[i])
+    for partition in partitions:
+        hull = []
+        if len(partition) > 3:
+            hull = graham_scan(partition)
+        else:
+            hull = partition
         hulls.append(hull)
 
     return hulls
+
+# https://gist.github.com/tixxit/242402
+TURN_LEFT, TURN_RIGHT, TURN_NONE = (1, -1, 0)
+
+# Zwraca kierunek
+# -1 dla prawego
+# 0 dla prosto
+# 1 dla lewego
+def turn(p, q, r):
+    return np.sign((q.x - p.x)*(r.y - p.y) - (r.x - p.x)*(q.y - p.y))
+
+# Zwraca natępny punkt otoczki w kierunku zgodnym ze wskazówkami zegara od p
+def _next_hull_pt(points, p):
+    q = p
+    for r in points:
+        t = turn(p, q, r)
+        if t == TURN_RIGHT or t == TURN_NONE and p.Distance(r) > p.Distance(q):
+            q = r
+    return q
+
+
+# jarvis march
+def _convex_hull(points):
+    hull = [min(points)]
+    for p in hull:
+        q = _next_hull_pt(points, p)
+        if q != hull[0]:
+            hull.append(q)
+    return hull
 
 
 def calculate_hull(points: Point = []):
@@ -238,13 +72,14 @@ def calculate_hull(points: Point = []):
     partial_hulls = []
 
     if len(points) > 3:
-        exp = 1
-        while final_hull == False:
-            m = math.pow(2, math.pow(2, exp))
-            partial_hulls = calculate_partial_hulls(m, points)
-            final_hull = jarvis_march(m, partial_hulls)
-            exp += 1
+        partial_hulls = calculate_partial_hulls(6, points)
+        unique_points = set()
+        for hull in partial_hulls:
+            for point in hull:
+                unique_points.add(point)
+        final_hull = _convex_hull(list(unique_points))
     else:
+        partial_hulls = points
         final_hull = points
     
     return {
@@ -284,7 +119,7 @@ def get_distance_between_all_points(points: Point = []) -> float:
 
 
 def generate_random_points(num_points: int, range_min: int, range_max: int) -> List[Point]:
-    return [Point(random.randint(range_min, range_max), random.randint(range_min, range_max)) for _ in range(num_points)]
+    return [Point(random.uniform(range_min, range_max), random.uniform(range_min, range_max)) for _ in range(num_points)]
 
 
 def get_points_from_text() -> List[Point]:
@@ -426,10 +261,95 @@ if __name__ == "__main__":
         Point(1, 1),
     ]
 
-    test_hull = calculate_hull(test)['convex_hull']
-    draw_convex_hull(test, test_hull)
+    test3 = [
+        Point(0, 0),
+        Point(1, 1),
+        Point(2, 2),
+        Point(3, 3),
+        Point(4, 4),
+        Point(5, 5),
+        Point(6, 6),
+        Point(7, 7),
+        Point(8,8),
+        Point(9, 9),
+        Point(10, 10),
+        Point(11, 11),
+        Point(12, 12),
+        Point(13, 13),
+        Point(14, 14),
+        Point(15, 15),
+        Point(16, 16),
+        Point(17, 17),
+        Point(18, 18),
+        Point(19, 19),
+        Point(20, 20),
+    ]
 
-    print(test_hull)
+    test3232 = [
+        Point(1.000, 0.000),
+        Point(0.966, 0.259),
+        Point(0.866, 0.500),
+        Point(0.707, 0.707),
+        Point(0.500, 0.866),
+        Point(0.259, 0.966),
+        Point(0.003, 1.000),
+        Point(-0.259, 0.966),
+        Point(-0.500, 0.866),
+        Point(-0.707, 0.707),
+        Point(-0.866, 0.500),
+        Point(-0.966, 0.259),
+        Point(-1.000, 0.000),
+        Point(-0.966, -0.259),
+        Point(-0.866, -0.500),
+        Point(0.500, 0.200),
+        Point(0.700, -0.300),
+        Point(-0.300, 0.800),
+        Point(0.400, 0.400),
+        Point(0.200, 0.100),
+        Point(-0.500, 0.100),
+        Point(-0.400, -0.500),
+        Point(-0.200, 0.700),
+        Point(0.100, -0.200),
+        Point(0.300, -0.100),
+        Point(-0.100, 0.600),
+        Point(0.600, -0.400),
+        Point(-0.600, -0.200),
+        Point(-0.700, -0.100),
+        Point(0.100, 0.500),
+        Point(-0.100, 0.300),
+        Point(0.500, -0.600),
+        Point(0.400, 0.000),
+        Point(-0.300, -0.400),
+        Point(-0.200, -0.600),
+        Point(-0.500, -0.300),
+        Point(0.600, 0.300),
+        Point(0.700, 0.400),
+        Point(-0.600, 0.600),
+        Point(-0.700, 0.700),
+        Point(0.200, -0.700),
+        Point(0.300, 0.200),
+        Point(-0.100, -0.500),
+        Point(0.100, -0.300),
+        Point(0.700, -0.600),
+        Point(0.600, -0.700),
+        Point(-0.200, -0.100),
+        Point(-0.300, 0.100),
+        Point(0.400, 0.500),
+        Point(-0.400, 0.200),
+        Point(0.500, -0.400),
+        Point(-0.600, -0.500),
+        Point(-0.700, 0.500),
+        Point(0.200, -0.300),
+        Point(0.300, 0.400)
+    ]
+
+    hull = calculate_hull(points1)['convex_hull']
+    draw_convex_hull(points1, hull)
+
+    print(hull)
+
+
+    # print(test_hull)
 
     # print(points3)
     # draw_convex_hull(points3, convex_hull_points_2)

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import math
 import dataclasses
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True, order=True)
 class Point:
     x: int
     y: int

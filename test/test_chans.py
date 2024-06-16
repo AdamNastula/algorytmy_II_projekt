@@ -1,3 +1,4 @@
+import collections
 import unittest
 from utils.intersection import Point
 import utils.chans_algorithm as chan
@@ -64,8 +65,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         ]
 
         hull = chan.calculate_hull(points)['convex_hull']
-        for pair in zip(expected_hull, hull):
-            self.assertEqual(pair[0], pair[1])
+        self.assertTrue(collections.Counter(hull) == collections.Counter(expected_hull))
 
     def test2(self):
         points = [
@@ -130,8 +130,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         ]
 
         hull = chan.calculate_hull(points)['convex_hull']
-        for pair in zip(expected_hull, hull):
-            self.assertEqual(pair[0], pair[1])
+        self.assertTrue(collections.Counter(hull) == collections.Counter(expected_hull))
 
     def test3(self):
         points = [
@@ -152,8 +151,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         ]
 
         hull = chan.calculate_hull(points)['convex_hull']
-        for pair in zip(expected_hull, hull):
-            self.assertEqual(pair[0], pair[1])
+        self.assertTrue(collections.Counter(hull) == collections.Counter(expected_hull))
 
     def test4(self):
         points = [        
@@ -172,8 +170,7 @@ class Test_Chans_algorithm(unittest.TestCase):
         ]
 
         hull = chan.calculate_hull(points)['convex_hull']
-        for pair in zip(expected_hull, hull):
-            self.assertAlmostEqual(pair[0], pair[1])
+        self.assertTrue(collections.Counter(hull) == collections.Counter(expected_hull))
 
     def test5(self):
         points = [
@@ -208,5 +205,4 @@ class Test_Chans_algorithm(unittest.TestCase):
         ]
 
         hull = chan.calculate_hull(points)['convex_hull']
-        for pair in zip(expected_hull, hull):
-            self.assertAlmostEqual(pair[0], pair[1])
+        self.assertTrue(collections.Counter(hull) == collections.Counter(expected_hull))
