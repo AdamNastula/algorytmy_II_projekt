@@ -1,0 +1,33 @@
+10
+11.0 200.0
+161.0 199.0
+186.0 149.0
+195.0 32.0
+196.0 9.0
+76.0 0.0
+22.0 34.0
+5.0 68.0
+1.0 99.0
+8.0 197.0
+20
+Pamela 95
+Ruby 90
+Fannie 76
+Wesley 32
+Michael 41
+Mellissa 57
+Frederick 94
+Jaime 19
+Evan 12
+Jeffrey 26
+Annie 17
+Kelly 86
+Thomas 18
+Marjorie 34
+William 31
+John 75
+Robert 64
+Savanna 78
+Erwin 82
+Marc 58
+10

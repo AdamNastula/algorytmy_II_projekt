@@ -5,6 +5,7 @@ from utils import intersection
 from problem1.solve_1a import solve_problem_1a
 from problem1.solve_1b import solve_problem_1b
 from utils.towers import generate_flatlanders
+from random import randint
 
 flatlanders_quantity = int(input())
 flatlanders_pairs = []
@@ -39,3 +40,5 @@ with open(path.resolve(), 'w') as file:
 
     for flatlander in flatlanders:
         file.write(flatlander.name + " " + str(flatlander.energy) + "\n")
+    
+    file.write(str(randint(3, 7)))

@@ -110,21 +110,33 @@ def validate_message(message):
 """odkodowuje originalna wiadomosc z postaci kodow hamminga"""
 def decode_message(message):
     original_message = ""
+    frames = []
+    frame = ""
 
-    i = 3
-    while (i < len(message)):
-        if (i in parity_bits_values):
+    for bit in message:
+        frame += bit
+
+        if (len(frame) == FRAME_SIZE):
+            frames.append(frame)
+            frame = ""
+        
+    for current_frame in frames:
+        i = 3
+
+        while (i < FRAME_SIZE):
+            if (i in parity_bits_values):
+                i += 1
+                continue
+            
+            original_message += current_frame[i]
             i += 1
-            continue
-
-        original_message += message[i]   
-        i += 1
 
     return original_message  
 
 if __name__ == "__main__":
-    encoded_mes = encode_message('0010101110100101011101')
+    encoded_mes = encode_message('0010101110100101011')
+    validated_message = validate_message(encoded_mes)
     decoded_message = decode_message(encoded_mes)
     print(decoded_message)
-    #0010101110100101011101
-    '001010111010010001011011101'
+    print(validated_message)
+    print(encoded_mes)
