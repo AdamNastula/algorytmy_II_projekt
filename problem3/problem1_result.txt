@@ -1,33 +1,33 @@
 10
-11.0 200.0
-161.0 199.0
-186.0 149.0
-195.0 32.0
-196.0 9.0
-76.0 0.0
-22.0 34.0
-5.0 68.0
-1.0 99.0
-8.0 197.0
+11.0 200.0 15
+161.0 199.0 19
+186.0 149.0 30
+195.0 32.0 8
+196.0 9.0 26
+76.0 0.0 6
+22.0 34.0 15
+5.0 68.0 13
+1.0 99.0 11
+8.0 197.0 10
 20
-Pamela 95
-Ruby 90
-Fannie 76
-Wesley 32
-Michael 41
-Mellissa 57
-Frederick 94
-Jaime 19
-Evan 12
-Jeffrey 26
-Annie 17
-Kelly 86
-Thomas 18
-Marjorie 34
-William 31
-John 75
-Robert 64
-Savanna 78
-Erwin 82
-Marc 58
-10
+Jordan 77
+Patsy 55
+Shannon 34
+Francis 43
+Stephen 97
+Ronald 22
+Lisa 25
+Cody 32
+Ellen 82
+Gary 73
+Diane 20
+Violet 51
+Robert 74
+Ethel 65
+Willie 92
+Jeffrey 28
+Omar 89
+Janell 2
+Jesus 57
+Tracy 40
+5

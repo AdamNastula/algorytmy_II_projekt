@@ -83,7 +83,6 @@ def validate_frame(frame):
                 
             validation = validation ^ i
     
-    print(validation)
     if (validation != 0):
         new_frame = frame[0:validation]
         new_frame += '0' if frame[validation] == '1' else '1'

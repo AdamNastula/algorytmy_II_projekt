@@ -33,7 +33,7 @@ path = Path('.') / 'problem3' / 'problem1_result.txt'
 with open(path.resolve(), 'w') as file:
     file.write(str(len(convex_hull)) + "\n")
     for point in convex_hull:
-        file.write(str(point.x) + " " + str(point.y) + "\n")
+        file.write(str(point.x) + " " + str(point.y) + " " + str(randint(5, 30)) + "\n")
 
     flatlanders = generate_flatlanders()
     file.write(str(len(flatlanders)) + "\n")
