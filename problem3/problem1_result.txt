@@ -1,33 +1,33 @@
 10
-11.0 200.0 15
-161.0 199.0 19
-186.0 149.0 30
-195.0 32.0 8
-196.0 9.0 26
-76.0 0.0 6
-22.0 34.0 15
-5.0 68.0 13
-1.0 99.0 11
-8.0 197.0 10
+11.0 200.0 29
+161.0 199.0 23
+186.0 149.0 11
+195.0 32.0 30
+196.0 9.0 24
+76.0 0.0 14
+22.0 34.0 23
+5.0 68.0 26
+1.0 99.0 15
+8.0 197.0 13
 20
-Jordan 77
-Patsy 55
-Shannon 34
-Francis 43
-Stephen 97
-Ronald 22
-Lisa 25
-Cody 32
-Ellen 82
-Gary 73
-Diane 20
-Violet 51
-Robert 74
-Ethel 65
-Willie 92
-Jeffrey 28
-Omar 89
-Janell 2
-Jesus 57
-Tracy 40
+Katherine 12
+Laura 3
+Christopher 27
+Michael 13
+Patricia 94
+Jena 69
+Mirian 33
+Robin 4
+Richard 42
+Carolina 16
+Princess 44
+Beatrice 9
+Lisa 10
+John 17
+Keith 82
+Demetria 34
+Travis 49
+David 67
+Joan 37
+Alicia 62
 5
