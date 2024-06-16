@@ -10,7 +10,7 @@ class Max_association:
         self.back_hands=[]
         self.separation_of_nodes()
         self.update_graph()
-        self.calculate_max_connections()
+        self.number_of_pairs=self.calculate_max_connections()
     """Rozdziela płaszczaki na te z rękoma z przodu oraz z tyłu(przyjmując żę zawsze podająć połączenia mówimy żę płaszczak w rękoma przodu lubi płaszczaka, który ma ręce z tyłu)"""
     def separation_of_nodes(self):
         for node in sorted(self.graph.node_list):
@@ -29,10 +29,12 @@ class Max_association:
     """Szuka maxymalnego przepływu w przygotowanym grafie"""
     def calculate_max_connections(self):
         self.edmonds = ek.EdmondsKarp(self.graph)
-        print(self.edmonds.find_max_flow("Start","End"))
+        max_flow=self.edmonds.find_max_flow("Start","End")
+        return max_flow
 
     """Wyświetla znalezione połączenia przy maksymalnym przepływie"""
     def print_connections(self):
+        print(self.number_of_pairs)
         for node in sorted(self.edmonds.graph.node_list):
 
             if (node in self.back_hands and self.edmonds.graph.adjacency_list[node][0]!="End"):
@@ -51,7 +53,7 @@ if __name__ == "__main__":
     edges.append(wg.Edge("E", "H", 1, 0))
 
     graph = wg.Graph(edges)
-    
+
     # draw_graph(graph)
 
     Family = Max_association(graph)

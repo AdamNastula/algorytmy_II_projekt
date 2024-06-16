@@ -174,3 +174,39 @@ class Test_Chans_algorithm(unittest.TestCase):
         hull = chan.calculate_hull(points)['convex_hull']
         for pair in zip(expected_hull, hull):
             self.assertAlmostEqual(pair[0], pair[1])
+
+    def test5(self):
+        points = [
+            Point(0, 0),
+            Point(1, 1),
+            Point(2, 2),
+            Point(3, 3),
+            Point(4, 4),
+            Point(5, 5),
+            Point(6, 6),
+            Point(7, 7),
+            Point(8, 8),
+            Point(9, 9),
+            Point(10, 10),
+            Point(11, 11),
+            Point(12, 12),
+            Point(13, 13),
+            Point(14, 14),
+            Point(15, 15),
+            Point(16, 16),
+            Point(17, 17),
+            Point(18, 18),
+            Point(19, 19),
+            Point(20, 20),
+            Point(20, 0)
+        ]
+
+        expected_hull = [
+            Point(20, 20),
+            Point(20, 0),
+            Point(0, 0)
+        ]
+
+        hull = chan.calculate_hull(points)['convex_hull']
+        for pair in zip(expected_hull, hull):
+            self.assertAlmostEqual(pair[0], pair[1])

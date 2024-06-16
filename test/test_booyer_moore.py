@@ -17,3 +17,10 @@ class TestBM(unittest.TestCase):
 
     def test5(self):
         self.assertAlmostEqual([], bm.bm_search("AAAABABABABAAABB", "AC", ['A', 'B']))
+
+    def test6(self):
+        self.assertAlmostEqual([70], bm.bm_search("ABCDEFGHJKLMNOPQRSTUVWABCDEFGHIJKLMNOPQRSTUVWABCDEFGHIJKLMNOPQRSTUVWYZXYZ", "XYZ", ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']))
+    def test7(self):
+        self.assertAlmostEqual([0, 5, 18], bm.bm_search("123@#123@#123456@#123@#123@#", "123@#123", ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@', '#']))
+    def test8(self):
+        self.assertAlmostEqual([5,8], bm.bm_search("ABCABXYZXYZXYZCBA", "XYZXYZ", ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']))
