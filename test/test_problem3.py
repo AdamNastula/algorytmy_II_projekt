@@ -28,8 +28,7 @@ class TestBM(unittest.TestCase):
             Tower(20, 3, 74)
         ]
         m = 3
-        greedy_rests = 0
-        gr.find_rest_spots(0, None, m, greedy_rests, towers, return_list_greedy)
+        greedy_rests = gr.find_rest_spots(0, None, m, 0, towers, return_list_greedy)
 
 
         self.assertAlmostEqual(test_bruteforce(0, None, m, 0, towers, return_list), greedy_rests)
